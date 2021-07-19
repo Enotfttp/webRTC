@@ -3,7 +3,7 @@ import {Subject} from 'rxjs';
 import {webSocket, WebSocketSubject} from 'rxjs/webSocket';
 import {Message} from '../types/message';
 
-export const WS_ENDPOINT = 'ws://localhost:8081';
+export const WS_ENDPOINT = 'ws://localhost:8080';
 
 @Injectable({
   providedIn: 'root'
