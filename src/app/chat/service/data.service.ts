@@ -1,39 +1,47 @@
 import {Injectable} from '@angular/core';
-import {WebSocketSubject} from 'rxjs/internal-compatibility';
 import {Subject} from 'rxjs';
-import {webSocket} from 'rxjs/webSocket';
+import {webSocket, WebSocketSubject} from 'rxjs/webSocket';
 import {Message} from '../types/message';
 
-export const WS_ENDPOINT = 'ws://localhost:8080';
+export const WS_ENDPOINT = 'ws://localhost:8081';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  private socket$: WebSocketSubject<Message>;
+
+  private socket$: WebSocketSubject<any>;
 
   private messagesSubject = new Subject<Message>();
-
   public messages$ = this.messagesSubject.asObservable();
 
+  /**
+   * Creates a new WebSocket subject and send it to the messages subject
+   * @param cfg if true the observable will be retried.
+   */
   public connect(): void {
-    this.socket$ = this.getNewWebSocket();
 
-    this.socket$.subscribe(
-      msg => {
-        console.log('Received message of types:' + msg.type);
-        this.messagesSubject.next(msg);
-      }
-    );
+    if (!this.socket$ || this.socket$.closed) {
+      this.socket$ = this.getNewWebSocket();
+
+      this.socket$.subscribe(
+// Called whenever there is a message from the server
+        msg => {
+          console.log('Received message of type: ' + msg.type);
+          this.messagesSubject.next(msg);
+        }
+      );
+    }
   }
 
-  sendMessage(msg: { data: string; type: string }): void {
+  sendMessage(msg: Message): void {
     console.log('sending message: ' + msg.type);
-    // console.log('sending message: ' );
-
-    // this.socket$.next(msg);
+    this.socket$.next(msg);
   }
 
+  /**
+   * Return a custom WebSocket subject which reconnects after failure
+   */
   private getNewWebSocket(): WebSocketSubject<any> {
     return webSocket({
       url: WS_ENDPOINT,
@@ -52,4 +60,3 @@ export class DataService {
     });
   }
 }
-
