@@ -25,6 +25,9 @@ export class ChatComponent implements AfterViewInit {
 
   private peerConnection: RTCPeerConnection;
 
+  inCall = false;
+  localVideoStream = false;
+
   constructor(private dataService: DataService) {
   }
 
@@ -38,7 +41,6 @@ export class ChatComponent implements AfterViewInit {
 
   private async requestMediaDevices(): Promise<void> {
     this.localStream = await navigator.mediaDevices.getUserMedia(mediaConstrains);
-    this.localVideo.nativeElement.srcObject = this.localStream;
   }
 
   pauseLocalVideo(): void {
@@ -46,6 +48,8 @@ export class ChatComponent implements AfterViewInit {
       track.enabled = false;
     });
     this.localVideo.nativeElement.srcObject = undefined;
+
+    this.localVideoStream = false;
   }
 
   startLocalVideo(): void {
@@ -53,6 +57,8 @@ export class ChatComponent implements AfterViewInit {
       track.enabled = true;
     });
     this.localVideo.nativeElement.srcObject = this.localStream;
+
+    this.localVideoStream = true;
   }
 
   async call(): Promise<void> {
@@ -76,7 +82,7 @@ export class ChatComponent implements AfterViewInit {
     this.peerConnection = new RTCPeerConnection({
       iceServers: [
         {
-          urls: ['stun.kunderserver.de:3478']
+          urls: ['stun:stunserver.example.org']
 
         }
       ]
@@ -101,6 +107,7 @@ export class ChatComponent implements AfterViewInit {
 
     this.peerConnection.close();
     this.peerConnection = null;
+    this.inCall = false;
   }
 
   private handleGetUserMediaError(e: Error): void {
@@ -200,6 +207,9 @@ export class ChatComponent implements AfterViewInit {
       return this.peerConnection.setLocalDescription(anwser);
     }).then(() => {
       this.dataService.sendMessage({type: 'answer', data: this.peerConnection.localDescription});
+
+      this.inCall = true;
+
     }).catch(this.handleGetUserMediaError);
 
   }
