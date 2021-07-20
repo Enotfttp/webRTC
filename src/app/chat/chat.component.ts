@@ -1,5 +1,4 @@
 import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
-import {environment} from '../../environments/environment';
 import {DataService} from './service/data.service';
 import {Message} from './types/message';
 
@@ -38,10 +37,11 @@ export class ChatComponent implements AfterViewInit {
 
   constructor(private dataService: DataService) { }
 
-  async call(): Promise<void> {    this.createPeerConnection();
+  async call(): Promise<void> {
+    this.createPeerConnection();
 
     // Add the tracks from the local stream to the RTCPeerConnection
-    this.localStream.getTracks().forEach(
+      this.localStream.getTracks().forEach(
       track => this.peerConnection.addTrack(track, this.localStream)
     );
 

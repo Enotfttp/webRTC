@@ -1,20 +1,20 @@
-video{
+video {
   width: 100%;
   background: grey;
 }
-p.video-description{
+
+p.video-description {
+  color: #fff;
+  font-size: 16px;
+  padding: 10px  0  0 10px;
   position: absolute;
   top: 0px;
   left: 10px;
-  color:#fff;
-
 }
-button{
+.color-call{
+  background: green;
+  color:#fff;
+}
+button {
   margin: 1em;
-  background:#32559c;
-  width: 100px;
-  height: 30px;
-  border-radius: 10px;
-  color:#ffffff;
-
 }

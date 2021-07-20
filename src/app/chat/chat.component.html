@@ -1,14 +1,14 @@
 <mat-grid-list cols="2" rowHeight="2:1">
   <mat-grid-tile>
-    <p class="video-description">local:</p>
+    <p class="video-description">Я</p>
     <video #local_video [autoplay]="true" [muted]="true"></video>
   </mat-grid-tile>
   <mat-grid-tile>
-    <p class="video-description">remote:</p>
+    <p class="video-description">Собеседник</p>
     <video #received_video [autoplay]="true" ></video>
   </mat-grid-tile>
 </mat-grid-list>
-<button mat-raised-button color="primary" (click)="startLocalVideo()">Start Local</button>
-<button mat-raised-button color="primary" (click)="pauseLocalVideo()">Stop Local</button>
-<button mat-raised-button color="primary" (click)="call()">Call</button>
-<button mat-raised-button color="primary" (click)="hangup()">Hangup</button>
+<button mat-raised-button color="primary" (click)="startLocalVideo()" [disabled]="localVideoActive">Включить камеру и микрофон</button>
+<button mat-raised-button color="primary" (click)="pauseLocalVideo()" [disabled]="!localVideoActive">Выключить камеру и микрофон</button>
+<button mat-raised-button class="color-call" (click)="call()"  [disabled]="inCall || !localVideoActive">Позвонить</button>
+<button mat-raised-button color="warn" (click)="hangup()"  [disabled]="!inCall">Завершить</button>
