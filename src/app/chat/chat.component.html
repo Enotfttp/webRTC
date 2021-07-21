@@ -12,3 +12,4 @@
 <button mat-raised-button color="primary" (click)="pauseLocalVideo()" [disabled]="!localVideoActive">Выключить камеру и микрофон</button>
 <button mat-raised-button class="color-call" (click)="call()"  [disabled]="inCall || !localVideoActive">Позвонить</button>
 <button mat-raised-button color="warn" (click)="hangup()"  [disabled]="!inCall">Завершить</button>
+
