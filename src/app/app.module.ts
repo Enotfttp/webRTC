@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { ChatComponent } from './chat/chat.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MessagesComponent } from './messages/messages.component';
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { MessagesComponent } from './messages/messages.component';
     MatToolbarModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

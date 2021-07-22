@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Message} from "../chat/types/message";
 
 @Component({
   selector: 'app-messages',
@@ -6,6 +7,9 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./messages.component.scss']
 })
 export class MessagesComponent implements OnInit {
+  message = '';
+
+  private peerConnection: RTCPeerConnection;
 
   constructor() {
   }
@@ -13,7 +17,9 @@ export class MessagesComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  send(): void {
+  messageInput(): void {
+    const text = this.message.toString();
+    console.log(text);
   }
 }
 

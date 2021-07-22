@@ -33,15 +33,20 @@ export class ChatComponent implements AfterViewInit {
 
   inCall = false;
   localVideoActive = false;
+  showVideo = true;
+  hideVideo = false;
+  showMicro = true;
+  hideMicro = false;
+  message = '';
 
-
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService) {
+  }
 
   async call(): Promise<void> {
     this.createPeerConnection();
 
     // Add the tracks from the local stream to the RTCPeerConnection
-      this.localStream.getTracks().forEach(
+    this.localStream.getTracks().forEach(
       track => this.peerConnection.addTrack(track, this.localStream)
     );
 
@@ -52,6 +57,7 @@ export class ChatComponent implements AfterViewInit {
 
       this.inCall = true;
 
+
       this.dataService.sendMessage({type: 'offer', data: offer});
     } catch (err) {
       this.handleGetUserMediaError(err);
@@ -61,6 +67,8 @@ export class ChatComponent implements AfterViewInit {
   hangup(): void {
     this.dataService.sendMessage({type: 'hangup', data: ''});
     this.closeVideoCall();
+
+
   }
 
   ngAfterViewInit(): void {
@@ -283,4 +291,18 @@ export class ChatComponent implements AfterViewInit {
     console.log(event);
     this.remoteVideo.nativeElement.srcObject = event.streams[0];
   }
+
+  micro(): void {
+    this.localStream.getAudioTracks()[0].enabled = !this.localStream.getAudioTracks()[0].enabled;
+    this.showMicro = !this.showMicro;
+    this.hideMicro = !this.hideMicro;
+  }
+
+  camera(): void {
+    this.localStream.getVideoTracks()[0].enabled = !this.localStream.getVideoTracks()[0].enabled;
+    this.showVideo = !this.showVideo;
+    this.hideVideo = !this.hideVideo;
+
+  }
+
 }

@@ -4,7 +4,7 @@
     <span class="remote">remote</span>
   </div>
   <div class="input-btn">
-    <input type="text" class="input" ng-model="message" autocomplete="off">
-    <button  mat-raised-button color="primary" class="btn" ng-click="send()">Отправить</button>
+    <input type="text" class="input" ng-model="message" autocomplete="off" [(ngModel)]="message">
+    <button  mat-raised-button color="primary" class="btn" (click)="messageInput()" [disabled]="message.length == 0">Отправить</button>
   </div>
 </div>

@@ -8,8 +8,23 @@
     <video #received_video [autoplay]="true" ></video>
   </mat-grid-tile>
 </mat-grid-list>
+<div class="btn-block"></div>
 <button mat-raised-button color="primary" (click)="startLocalVideo()" [disabled]="localVideoActive">Включить камеру и микрофон</button>
-<button mat-raised-button color="primary" (click)="pauseLocalVideo()" [disabled]="!localVideoActive">Выключить камеру и микрофон</button>
-<button mat-raised-button class="color-call" (click)="call()"  [disabled]="inCall || !localVideoActive">Позвонить</button>
-<button mat-raised-button color="warn" (click)="hangup()"  [disabled]="!inCall">Завершить</button>
+
+<button mat-mini-fab color="primary"  class="btn-camera" (click)="camera()" [disabled]="!localVideoActive" [disabled]="!localVideoActive" *ngIf="showVideo">
+  <img src="assets/images/camera-1.png" alt="micro" class="camera-img-1"></button>
+
+<button mat-mini-fab color="primary"  class="btn-camera"  (click)="camera()" [disabled]="!localVideoActive" [disabled]="!localVideoActive" *ngIf="hideVideo">
+  <img src="assets/images/camera-2.png" alt="micro" class="camera-img-2"></button>
+
+<button mat-mini-fab color="primary"  class="btn-micro"  (click)="micro()" [disabled]="!localVideoActive"  *ngIf="showMicro">
+  <img src="assets/images/micro-1.png" alt="micro"></button>
+
+<button mat-mini-fab color="primary"  class="btn-micro" (click)="micro()" [disabled]="!localVideoActive" *ngIf="hideMicro">
+  <img src="assets/images/micro-2.png" alt="micro"></button>
+
+<button mat-raised-button class="color-call" (click)="call()"  [disabled]="inCall || !localVideoActive" >Позвонить</button>
+
+<button mat-raised-button color="warn" (click)="hangup()"  [disabled]="!inCall" >Завершить</button>
+
 

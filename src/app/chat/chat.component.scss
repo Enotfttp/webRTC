@@ -18,3 +18,39 @@ p.video-description {
 button {
   margin: 1em;
 }
+.btn-block{
+  display: flex;
+  width: 100%;
+}
+.btn-camera{
+  position: relative;
+
+}
+.camera-img-1{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 32px;
+  height: 18px;
+}
+.camera-img-2{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 39px;
+  height: 28px;
+}
+
+.btn-micro{
+  position: relative;
+  img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 25px;
+    height: 30px;
+  }
+}
